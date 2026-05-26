@@ -184,6 +184,58 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Eidi Claim Button Logic
+    const claimEidiBtn = document.getElementById('claim-eidi-btn');
+    const eidiModal = document.getElementById('eidi-modal');
+    const closeModal = document.getElementById('close-modal');
+    const eidiMessage = document.getElementById('eidi-message');
+
+    if (claimEidiBtn) {
+        claimEidiBtn.addEventListener('click', () => {
+            // Golden Confetti Explosion
+            const duration = 3000;
+            const end = Date.now() + duration;
+            (function frame() {
+                confetti({
+                    particleCount: 5,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0, y: 0.8 },
+                    colors: ['#FFD700', '#DAA520', '#F9E596']
+                });
+                confetti({
+                    particleCount: 5,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1, y: 0.8 },
+                    colors: ['#FFD700', '#DAA520', '#F9E596']
+                });
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+
+            // Setup Modal Message
+            const senderName = document.getElementById('display-name').textContent || 'Aapke dost';
+            eidiMessage.innerHTML = `<strong>${senderName}</strong> ne aapko ₹500 ki Digital Eidi bheji hai...<br><br>Kharch mat karna! 😜`;
+            
+            // Show Modal
+            eidiModal.style.display = 'flex';
+
+            // Disable button
+            claimEidiBtn.textContent = 'Eidi Claimed! 💰';
+            claimEidiBtn.disabled = true;
+            claimEidiBtn.style.opacity = '0.7';
+            claimEidiBtn.style.cursor = 'not-allowed';
+        });
+    }
+
+    if (closeModal) {
+        closeModal.addEventListener('click', () => {
+            eidiModal.style.display = 'none';
+        });
+    }
+
     // Music Toggle Button
     if (musicBtn && bgMusic) {
         musicBtn.addEventListener('click', () => {

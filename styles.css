@@ -486,6 +486,41 @@ input::placeholder {
     animation: pulse 2s infinite;
     z-index: 10;
 }
+/* Eidi Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex; justify-content: center; align-items: center;
+    z-index: 2000;
+    backdrop-filter: blur(4px);
+}
+.modal-content {
+    background: var(--primary-dark);
+    border: 3px solid var(--gold);
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 20px rgba(212, 175, 55, 0.4);
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.modal-title {
+    color: var(--gold);
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+.modal-message {
+    color: white;
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+@keyframes popIn {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
 
 /* Envelope Animation */
 #surprise-view {
