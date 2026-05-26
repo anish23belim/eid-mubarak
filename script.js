@@ -10,6 +10,32 @@ document.addEventListener('DOMContentLoaded', () => {
     const bgMusic = document.getElementById('bg-music');
     let isPlaying = false;
 
+    // Photo Upload Logic
+    const photoInput = document.getElementById('photo');
+    const photoPreview = document.getElementById('photo-preview');
+    const uploadText = document.getElementById('upload-text');
+    let uploadedPhotoData = null;
+
+    if (photoInput) {
+        photoInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    uploadedPhotoData = event.target.result;
+                    if (photoPreview) {
+                        photoPreview.src = uploadedPhotoData;
+                        photoPreview.style.display = 'block';
+                    }
+                    if (uploadText) {
+                        uploadText.textContent = '📸 Photo Selected! (Change)';
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
+
     // Messages for rotation
     const messages = [
         "May the divine blessings of Allah bring you hope, faith, and joy on Eid-ul-Fitr and forever.",
@@ -81,6 +107,14 @@ document.addEventListener('DOMContentLoaded', () => {
             calligraphyText.classList.remove('draw-animation');
             void calligraphyText.offsetWidth; // Trigger reflow to restart animation
             calligraphyText.classList.add('draw-animation');
+        }
+        
+        // Show Photo if uploaded
+        const greetingPhotoContainer = document.getElementById('greeting-photo-container');
+        const greetingPhoto = document.getElementById('greeting-photo');
+        if (uploadedPhotoData && greetingPhotoContainer && greetingPhoto) {
+            greetingPhoto.src = uploadedPhotoData;
+            greetingPhotoContainer.style.display = 'block';
         }
         
         // Start Music
