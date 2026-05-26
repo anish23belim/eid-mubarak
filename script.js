@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const img = new Image();
                     img.onload = () => {
                         const canvas = document.createElement('canvas');
-                        const MAX_WIDTH = 250;
+                        const MAX_WIDTH = 150; // Smaller size for safe Google Sheet insertion
                         const scaleSize = MAX_WIDTH / img.width;
                         canvas.width = MAX_WIDTH;
                         canvas.height = img.height * scaleSize;
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
                         
                         // Compress heavily to ensure it fits in Google Sheets cell limit (50k chars)
-                        uploadedPhotoData = canvas.toDataURL('image/jpeg', 0.6);
+                        uploadedPhotoData = canvas.toDataURL('image/jpeg', 0.4);
                         
                         if (photoPreview) {
                             photoPreview.src = uploadedPhotoData;
@@ -93,16 +93,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Send Data to Google Sheet
                     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyYCesuqNayvkafF2_X8zbHdWw8tbr4iUL6qdWe0-PC5iCKTKKcQnf5aHX4uEXxt1SI/exec";
                     
-                    const formData = new FormData();
-                    formData.append("Name", nameInput);
-                    formData.append("Mobile", mobileInput);
+                    // Use URLSearchParams for reliable application/x-www-form-urlencoded submission
+                    const searchParams = new URLSearchParams();
+                    searchParams.append("Name", nameInput);
+                    searchParams.append("Mobile", mobileInput);
                     if (uploadedPhotoData) {
-                        formData.append("Photo", uploadedPhotoData);
+                        searchParams.append("Photo", uploadedPhotoData);
                     }
                     
                     fetch(GOOGLE_SCRIPT_URL, {
                         method: 'POST',
-                        body: formData,
+                        body: searchParams,
                         mode: 'no-cors' // Important for simple Google Script integration
                     }).catch(err => console.error("Error saving to sheet:", err));
 
