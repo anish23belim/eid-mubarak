@@ -73,6 +73,13 @@
             <div class="input-group">
                 <input type="tel" id="mobile" placeholder="Enter Mobile Number (Optional)" autocomplete="off">
             </div>
+            <div class="input-group photo-upload-group">
+                <input type="file" id="photo" accept="image/*" style="display: none;">
+                <label for="photo" class="btn-outline upload-label">
+                    <span id="upload-text">📷 Upload Your Photo (Optional)</span>
+                </label>
+                <img id="photo-preview" class="photo-preview" style="display: none;">
+            </div>
             <button type="submit" class="btn-glow">Create Greeting</button>
         </form>
     </div>
@@ -90,6 +97,9 @@
         <div class="moon large"></div>
         
         <div class="greeting-content">
+            <div class="user-photo-container" id="greeting-photo-container" style="display: none;">
+                <img id="greeting-photo" src="" alt="User Photo">
+            </div>
             <div class="calligraphy-container">
                 <svg class="calligraphy-svg" viewBox="0 0 400 120">
                     <text x="50%" y="55%" text-anchor="middle" dominant-baseline="middle" class="calligraphy-text" id="arabic-text-svg">عيد مبارك</text>
