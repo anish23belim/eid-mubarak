@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 if (nameInput) {
                     // Send Data to Google Sheet
-                    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx3PoXNkSPHWPo6uxIfosB-rYqLrGD8UrwVZPWosuhnUBOR0ZdtR16e92EUY8dgr0M_/exec";
+                    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwbirDyxhSofoxc_Zg9Bk7cVp7sEg4u0JYKi2HjKU8JMWgI9xM6fe-FMMncwTOcXvg/exec";
                     
                     // Use URLSearchParams for reliable application/x-www-form-urlencoded submission
                     const searchParams = new URLSearchParams();
