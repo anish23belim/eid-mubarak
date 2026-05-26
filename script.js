@@ -207,8 +207,8 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const message = `✨ Eid Mubarak! ✨\n\nI have sent you a special Eid greeting. Check it out here:\n${shareUrl}\n\nMay this Eid bring you joy and peace! 🌙`;
             
-            const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
-            window.open(whatsappUrl, '_blank');
+            const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+            window.location.href = whatsappUrl;
         });
     }
 
