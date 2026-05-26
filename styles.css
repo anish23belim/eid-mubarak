@@ -1,0 +1,422 @@
+:root {
+    --primary-dark: #022b18;
+    --primary-light: #065f43;
+    --gold: #D4AF37;
+    --gold-light: #F9E596;
+    --text-light: #f4f4f4;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--primary-dark);
+    background-image: url('bg.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-blend-mode: overlay;
+    color: var(--text-light);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    position: relative;
+}
+
+.background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(6, 95, 67, 0.6) 0%, rgba(2, 43, 24, 0.9) 100%);
+    z-index: 1;
+}
+
+/* Container */
+.container, .greeting-container {
+    position: relative;
+    z-index: 10;
+    background: rgba(2, 43, 24, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    padding: 3rem 2rem;
+    border-radius: 24px;
+    text-align: center;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 20px rgba(212, 175, 55, 0.1);
+}
+
+.greeting-container {
+    max-width: 600px;
+    padding: 4rem 2rem;
+}
+
+/* Typography */
+.title {
+    font-family: 'Amiri', serif;
+    font-size: 3rem;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+}
+
+.subtitle {
+    font-size: 1rem;
+    color: var(--text-light);
+    opacity: 0.8;
+    margin-bottom: 2rem;
+}
+
+.arabic-text {
+    font-family: 'Amiri', serif;
+    font-size: 4rem;
+    color: var(--gold-light);
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+    line-height: 1;
+}
+
+.main-greeting {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 2.5rem;
+    color: white;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+}
+
+.user-name {
+    font-family: 'Amiri', serif;
+    font-size: 2.8rem;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 15px rgba(212, 175, 55, 0.8);
+    word-break: break-word;
+}
+
+.message {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+    color: rgba(255, 255, 255, 0.9);
+    transition: opacity 0.5s ease-in-out;
+    min-height: 80px;
+}
+
+/* Form Elements */
+.input-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+input {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    border-radius: 50px;
+    color: white;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+input:focus {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--gold);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Buttons */
+.btn-glow {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(45deg, var(--gold), #f3d45c);
+    border: none;
+    border-radius: 50px;
+    color: var(--primary-dark);
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+    font-family: 'Poppins', sans-serif;
+}
+
+.btn-glow:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.6);
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+}
+
+.btn-whatsapp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 1rem;
+    background: #25D366;
+    border: none;
+    border-radius: 50px;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+    text-decoration: none;
+}
+
+.btn-whatsapp:hover {
+    background: #128C7E;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.6);
+}
+
+.wa-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.btn-outline {
+    width: 100%;
+    padding: 1rem;
+    background: transparent;
+    border: 1px solid var(--gold);
+    border-radius: 50px;
+    color: var(--gold);
+    font-size: 1rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+/* Animations */
+.fade-in {
+    animation: fadeIn 1.5s ease forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Moon element */
+.moon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    box-shadow: 15px 15px 0 0 var(--gold);
+    margin: 0 auto 2rem auto;
+    animation: float 4s ease-in-out infinite;
+    transform: rotate(-15deg);
+}
+
+.moon.large {
+    width: 80px;
+    height: 80px;
+    box-shadow: 20px 20px 0 0 var(--gold);
+}
+
+@keyframes float {
+    0% { transform: translateY(0) rotate(-15deg); }
+    50% { transform: translateY(-10px) rotate(-10deg); }
+    100% { transform: translateY(0) rotate(-15deg); }
+}
+
+/* Stars background */
+.stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle linear infinite;
+}
+
+@keyframes twinkle {
+    0% { opacity: 0.2; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 5px white; }
+    100% { opacity: 0.2; transform: scale(0.8); }
+}
+
+/* Music button */
+.music-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+    background: rgba(2, 43, 24, 0.8);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 10px 15px;
+    border-radius: 30px;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+}
+
+.music-btn:hover {
+    background: rgba(212, 175, 55, 0.2);
+}
+
+/* Responsive adjustments moved to bottom */
+/* Lantern Animations */
+.lantern {
+    position: absolute;
+    top: 0;
+    width: 80px;
+    height: 120px;
+    z-index: 5;
+    transform-origin: top center;
+}
+
+.lantern-left {
+    left: 10%;
+    animation: swing 4s ease-in-out infinite alternate;
+}
+
+.lantern-right {
+    right: 10%;
+    width: 100px;
+    height: 150px;
+    animation: swing 5s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes swing {
+    0% { transform: rotate(8deg); }
+    100% { transform: rotate(-8deg); }
+}
+
+.lantern-glow {
+    animation: flicker 2s infinite alternate;
+}
+
+@keyframes flicker {
+    0%, 100% { opacity: 1; filter: drop-shadow(0 0 15px rgba(249, 229, 150, 1)); }
+    50% { opacity: 0.6; filter: drop-shadow(0 0 5px rgba(249, 229, 150, 0.5)); }
+}
+
+/* Shooting Stars */
+.shooting-star {
+    position: absolute;
+    width: 2px;
+    height: 80px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1));
+    transform: rotate(45deg);
+    opacity: 0;
+    z-index: 1;
+}
+
+/* Calligraphy Drawing Animation */
+.calligraphy-container {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calligraphy-svg {
+    width: 100%;
+    max-width: 300px;
+    height: 100%;
+    overflow: visible;
+}
+
+.calligraphy-text {
+    font-family: 'Amiri', serif;
+    font-size: 5rem;
+    fill: transparent;
+    stroke: var(--gold-light);
+    stroke-width: 1.5px;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3));
+}
+
+.draw-animation {
+    animation: 
+        drawCalligraphy 4s cubic-bezier(0.4, 0, 0.2, 1) forwards, 
+        fillCalligraphy 2s ease-in-out 3.5s forwards;
+}
+
+@keyframes drawCalligraphy {
+    0% { stroke-dashoffset: 1000; }
+    100% { stroke-dashoffset: 0; }
+}
+
+@keyframes fillCalligraphy {
+    0% { fill: transparent; }
+    100% { 
+        fill: var(--gold-light); 
+        stroke-width: 0;
+        filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.8));
+    }
+}
+
+/* Perfect Mobile Adjustments */
+@media (max-width: 600px) {
+    .container, .greeting-container {
+        width: 95%;
+        padding: 2rem 1.5rem;
+        margin-top: 10px;
+    }
+    
+    .title { font-size: 2.2rem; }
+    .subtitle { font-size: 0.9rem; margin-bottom: 1.5rem; }
+    .main-greeting { font-size: 1.8rem; }
+    .user-name { font-size: 1.8rem; margin-bottom: 1rem; }
+    .message { font-size: 0.95rem; margin-bottom: 1.5rem; min-height: 90px; line-height: 1.4; }
+    
+    .calligraphy-container { height: 70px; margin-bottom: 0.5rem; }
+    .calligraphy-text { font-size: 3.2rem; }
+    
+    .moon { width: 50px; height: 50px; margin-bottom: 1.5rem; box-shadow: 12px 12px 0 0 var(--gold); }
+    .moon.large { width: 60px; height: 60px; box-shadow: 15px 15px 0 0 var(--gold); }
+    
+    .lantern { transform: scale(0.65); top: -10px; }
+    .lantern-left { left: -5%; }
+    .lantern-right { right: -5%; }
+    
+    input { padding: 0.8rem 1.2rem; font-size: 0.95rem; }
+    .btn-glow, .btn-whatsapp, .btn-outline { padding: 0.8rem; font-size: 1rem; }
+    
+    .music-btn { top: 10px; right: 10px; padding: 8px 12px; font-size: 0.8rem; }
+}
