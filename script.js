@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (rawName && rawName.trim().length > 0) {
         // Someone received a link, show the "Surprise" view first
         formView.style.display = 'none';
-        surpriseView.style.display = 'block';
+        surpriseView.style.display = 'flex';
         
         let userName = rawName.trim();
         userName = userName.charAt(0).toUpperCase() + userName.slice(1);
@@ -77,8 +77,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // When they click the surprise, start greeting and music
         surpriseView.addEventListener('click', () => {
-            surpriseView.style.display = 'none';
-            showGreetingAndPlayMusic();
+            const envelope = document.querySelector('.envelope');
+            if (envelope && !envelope.classList.contains('open')) {
+                envelope.classList.add('open');
+                
+                // Wait for animation to finish before showing greeting
+                setTimeout(() => {
+                    surpriseView.style.opacity = '0';
+                    setTimeout(() => {
+                        surpriseView.style.display = 'none';
+                        showGreetingAndPlayMusic();
+                    }, 500);
+                }, 2000);
+            }
         });
     } else {
         // Normal form view

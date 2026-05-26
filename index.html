@@ -85,11 +85,18 @@
     </div>
 
     <!-- 2. Surprise View (Click to Open) -->
-    <div class="container" id="surprise-view" style="display: none; cursor: pointer;">
-        <div class="moon"></div>
-        <h1 class="title">You have a Surprise!</h1>
-        <p class="subtitle">Tap anywhere to open</p>
-        <div class="btn-glow" style="text-align: center; margin-top: 20px;">Open Greeting 🎁</div>
+    <div id="surprise-view" style="display: none; transition: opacity 0.5s ease;">
+        <div class="envelope-wrapper">
+            <div class="envelope">
+                <div class="envelope-back"></div>
+                <div class="envelope-letter">
+                    <p class="envelope-text">Eid<br>Mubarak</p>
+                </div>
+                <div class="envelope-front"></div>
+                <div class="envelope-flap"></div>
+            </div>
+            <div class="envelope-instruction">Tap Envelope to Open 🎁</div>
+        </div>
     </div>
 
     <!-- 3. Greeting View -->
