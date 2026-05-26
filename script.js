@@ -138,6 +138,10 @@ document.addEventListener('DOMContentLoaded', () => {
             void calligraphyText.offsetWidth; // Trigger reflow to restart animation
             calligraphyText.classList.add('draw-animation');
         }
+
+        // Initialize 3D Lantern
+        init3DLantern();
+        
         
         // Show Photo if uploaded
         const greetingPhotoContainer = document.getElementById('greeting-photo-container');
@@ -329,4 +333,131 @@ function shootConfetti() {
             requestAnimationFrame(frame);
         }
     }());
+}
+let lanternInitialized = false;
+function init3DLantern() {
+    if (lanternInitialized) return;
+    const container = document.getElementById('lantern-3d-container');
+    if (!container || typeof THREE === 'undefined') return;
+    lanternInitialized = true;
+    
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
+    camera.position.z = 5.5;
+    camera.position.y = 0.5;
+
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    container.appendChild(renderer.domElement);
+
+    const lantern = new THREE.Group();
+
+    const goldMat = new THREE.MeshStandardMaterial({ color: 0xd4af37, metalness: 0.7, roughness: 0.3 });
+    const glassMat = new THREE.MeshPhysicalMaterial({ 
+        color: 0xffffff, transmission: 0.9, opacity: 1, metalness: 0, roughness: 0.1, ior: 1.5, thickness: 0.1
+    });
+
+    // Base
+    const baseGeo = new THREE.CylinderGeometry(0.6, 0.7, 0.2, 6);
+    const base = new THREE.Mesh(baseGeo, goldMat);
+    base.position.y = -1;
+    lantern.add(base);
+
+    // Body (Glass)
+    const bodyGeo = new THREE.CylinderGeometry(0.5, 0.6, 1.5, 6);
+    const body = new THREE.Mesh(bodyGeo, glassMat);
+    body.position.y = -0.15;
+    lantern.add(body);
+
+    // Edges (Gold Frame)
+    const edgeGeo = new THREE.EdgesGeometry(bodyGeo);
+    const edgeMat = new THREE.LineBasicMaterial({ color: 0xd4af37, linewidth: 2 });
+    const wireframe = new THREE.LineSegments(edgeGeo, edgeMat);
+    wireframe.position.y = -0.15;
+    lantern.add(wireframe);
+
+    // Top Cap
+    const capGeo = new THREE.CylinderGeometry(0.65, 0.55, 0.2, 6);
+    const cap = new THREE.Mesh(capGeo, goldMat);
+    cap.position.y = 0.7;
+    lantern.add(cap);
+
+    // Roof
+    const roofGeo = new THREE.ConeGeometry(0.65, 0.8, 6);
+    const roof = new THREE.Mesh(roofGeo, goldMat);
+    roof.position.y = 1.2;
+    lantern.add(roof);
+
+    // Top Ring
+    const ringGeo = new THREE.TorusGeometry(0.15, 0.04, 8, 16);
+    const ring = new THREE.Mesh(ringGeo, goldMat);
+    ring.position.y = 1.7;
+    ring.rotation.x = Math.PI / 2;
+    lantern.add(ring);
+
+    scene.add(lantern);
+
+    // Lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+    scene.add(ambientLight);
+
+    const dirLight = new THREE.DirectionalLight(0xffffff, 0.6);
+    dirLight.position.set(2, 4, 2);
+    scene.add(dirLight);
+
+    // Glowing Inner Light
+    const innerLight = new THREE.PointLight(0xf9e596, 0, 10);
+    innerLight.position.set(0, -0.15, 0);
+    scene.add(innerLight);
+
+    // Interaction
+    let isDragging = false;
+    let previousX = 0;
+    let rotationVelocity = 0;
+    let totalRotation = 0;
+    const calligraphy = document.querySelector('.calligraphy-container');
+
+    const onDown = (x) => { isDragging = true; previousX = x; };
+    const onMove = (x) => {
+        if (!isDragging) return;
+        const deltaX = x - previousX;
+        rotationVelocity = deltaX * 0.01;
+        totalRotation += Math.abs(rotationVelocity);
+        
+        let intensity = Math.min(2.5, totalRotation * 0.1);
+        innerLight.intensity = intensity;
+        
+        if (calligraphy) {
+            let opacity = Math.min(1, 0.1 + totalRotation * 0.05);
+            calligraphy.style.opacity = opacity;
+        }
+
+        if (intensity > 1) {
+            container.classList.add('glowing');
+            const hint = container.querySelector('.drag-hint');
+            if (hint) hint.style.opacity = 0;
+        }
+        previousX = x;
+    };
+    const onUp = () => { isDragging = false; };
+
+    container.addEventListener('mousedown', (e) => onDown(e.clientX));
+    window.addEventListener('mousemove', (e) => onMove(e.clientX));
+    window.addEventListener('mouseup', onUp);
+
+    container.addEventListener('touchstart', (e) => onDown(e.touches[0].clientX), {passive: true});
+    window.addEventListener('touchmove', (e) => onMove(e.touches[0].clientX), {passive: true});
+    window.addEventListener('touchend', onUp);
+
+    function animate() {
+        requestAnimationFrame(animate);
+        if (!isDragging) rotationVelocity *= 0.95;
+        if (Math.abs(rotationVelocity) < 0.005) {
+            lantern.rotation.y += 0.005; // auto spin
+        } else {
+            lantern.rotation.y += rotationVelocity;
+        }
+        renderer.render(scene, camera);
+    }
+    animate();
 }

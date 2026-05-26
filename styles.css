@@ -349,6 +349,8 @@ input::placeholder {
     display: flex;
     justify-content: center;
     align-items: center;
+    opacity: 0.1; /* Starts faint for 3D Lantern reveal */
+    transition: opacity 0.3s ease;
 }
 
 .calligraphy-svg {
@@ -451,6 +453,38 @@ input::placeholder {
 @keyframes sparkle-fall {
     0% { transform: scale(1) translateY(0) rotate(0deg); opacity: 1; }
     100% { transform: scale(0) translateY(50px) rotate(180deg); opacity: 0; }
+}
+
+/* 3D Lantern Container */
+.lantern-3d-container {
+    width: 300px;
+    height: 300px;
+    margin: 0 auto 1rem auto;
+    position: relative;
+    cursor: grab;
+}
+.lantern-3d-container:active {
+    cursor: grabbing;
+}
+.lantern-3d-container canvas {
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
+    transition: box-shadow 0.3s ease;
+    background: radial-gradient(circle, rgba(2,43,24,0.8) 0%, rgba(1,26,14,0) 70%);
+}
+.lantern-3d-container.glowing canvas {
+    box-shadow: 0 0 60px rgba(212, 175, 55, 0.6), inset 0 0 40px rgba(212, 175, 55, 0.2);
+}
+.drag-hint {
+    position: absolute;
+    bottom: -10px;
+    width: 100%;
+    text-align: center;
+    color: var(--gold);
+    font-size: 0.85rem;
+    pointer-events: none;
+    animation: pulse 2s infinite;
+    z-index: 10;
 }
 
 /* Envelope Animation */
