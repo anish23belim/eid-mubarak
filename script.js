@@ -189,6 +189,36 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = window.location.href.split('?')[0];
         });
     }
+
+    // Magic Touch Sparkles
+    const createSparkle = (x, y) => {
+        const sparkle = document.createElement('div');
+        sparkle.classList.add('magic-sparkle');
+        sparkle.style.left = `${x}px`;
+        sparkle.style.top = `${y}px`;
+        
+        const colors = ['#D4AF37', '#F9E596', '#065f43', '#ffffff'];
+        sparkle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        
+        document.body.appendChild(sparkle);
+        setTimeout(() => sparkle.remove(), 1000);
+    };
+
+    let lastMove = 0;
+    document.addEventListener('mousemove', (e) => {
+        if (Date.now() - lastMove > 30) {
+            createSparkle(e.clientX, e.clientY);
+            lastMove = Date.now();
+        }
+    });
+
+    document.addEventListener('touchmove', (e) => {
+        if (Date.now() - lastMove > 30) {
+            const touch = e.touches[0];
+            createSparkle(touch.clientX, touch.clientY);
+            lastMove = Date.now();
+        }
+    }, { passive: true });
 });
 
 // Helper Functions
